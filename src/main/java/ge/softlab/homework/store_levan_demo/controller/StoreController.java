@@ -1,6 +1,6 @@
 package ge.softlab.homework.store_levan_demo.controller;
 
-import ge.softlab.homework.store_levan_demo.model.Products;
+import ge.softlab.homework.store_levan_demo.model.Product;
 import ge.softlab.homework.store_levan_demo.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,14 @@ public class StoreController {
     }
 
     @GetMapping
-    public List<Products> getProducts(String product_name){
-        return storeService.getProducts(product_name);
+    public List<Product> getProducts(String Product){
+        return storeService.getProducts(Product);
 
     }
 
-    @PostMapping
-    public  ResponseEntity<Products> addNewProduct(@RequestBody Products product){
-        Products newProduct = storeService.add(product);
+    @PutMapping
+    public  ResponseEntity<Product> addNewProduct(@RequestBody Product product){
+        Product newProduct = storeService.addProducts(product);
         return ResponseEntity.status(201).body(newProduct);
     }
 
