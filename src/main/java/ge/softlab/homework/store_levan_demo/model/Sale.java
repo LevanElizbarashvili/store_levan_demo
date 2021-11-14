@@ -1,0 +1,27 @@
+package ge.softlab.homework.store_levan_demo.model;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "sales")
+@SequenceGenerator(name = "salesIdGenerator", sequenceName = "sales_id_seq", allocationSize = 1)
+public class Sale {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salesIdGenerator")
+    private Integer id;
+    @Column(name = "product_id")
+    private Integer productId;
+    @Column(name = "sell_price")
+    private Integer sellPrice;
+    @Column(name = "sell_date")
+    private LocalDate sellDate;
+
+}
