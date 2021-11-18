@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String eanCode;
     @Column(name = "product_name")
     private String productName;
@@ -29,4 +28,7 @@ public class Product {
     @Column(name = "remaining")
     private Integer remaining;
 
+    public Object getRemaining(String id) {
+        return null;
+    }
 }

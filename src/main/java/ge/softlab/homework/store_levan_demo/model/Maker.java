@@ -2,7 +2,6 @@ package ge.softlab.homework.store_levan_demo.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
