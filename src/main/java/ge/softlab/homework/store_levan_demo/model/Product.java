@@ -28,7 +28,4 @@ public class Product {
     @Column(name = "remaining")
     private Integer remaining;
 
-    public Object getRemaining(String id) {
-        return null;
-    }
 }

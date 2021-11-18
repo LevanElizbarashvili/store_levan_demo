@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,9 +39,16 @@ public class StoreServiceImpl implements StoreService {
         sale.setProductId(id);
         sale.setSellPrice(product.getSellPrice());
         sale.setSellDate(LocalDateTime.now());
-        return salesRepository.save(sale);
+        salesRepository.save(sale);
+
+        product.setRemaining(product.getRemaining() - 1);
+        productsRepository.save(product);
+        return sale;
+
     }
 
+
 }
+
 
 
