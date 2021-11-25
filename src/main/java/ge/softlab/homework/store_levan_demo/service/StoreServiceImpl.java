@@ -1,9 +1,11 @@
 package ge.softlab.homework.store_levan_demo.service;
 
 import ge.softlab.homework.store_levan_demo.model.Product;
+import ge.softlab.homework.store_levan_demo.model.Purchase;
 import ge.softlab.homework.store_levan_demo.model.Sale;
 import ge.softlab.homework.store_levan_demo.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,6 +47,30 @@ public class StoreServiceImpl implements StoreService {
         productsRepository.save(product);
         return sale;
 
+    }
+
+
+    @Override
+    @Transactional
+    public Purchase purchaseProduct(String id) {
+        Product product = productsRepository.findById(String.valueOf(id)).orElseThrow();
+
+        Purchase purchase = new Purchase();
+        purchase.setProductId(id);
+        purchase.setPurchasePrice(product.getPurchasePrice());
+        purchase.setPurchaseDate(LocalDateTime.now());
+        purchasesRepository.save(purchase);
+
+        product.setRemaining(product.getRemaining() + 1);
+        productsRepository.save(product);
+        return purchase;
+
+    }
+
+
+    @Override
+    public List<Sale> getSales(Integer Sale) {
+        return salesRepository.findAll(Sort.by(Sort.Direction.DESC,"sellDate"));
     }
 
 

@@ -21,8 +21,10 @@ public class Product {
     private String description;
     @Column(name = "maker_id")
     private Integer makerId;
-    @Column(name = "category_Id")
+    @Column(name = "category_id")
     private Integer categoryId;
+    @Column(name = "purchase_price")
+    private Integer purchasePrice;
     @Column(name = "sell_price")
     private Integer sellPrice;
     @Column(name = "remaining")

@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -18,10 +18,10 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "purchasesIdGenerator")
     private Integer id;
     @Column(name = "product_id")
-    private Integer productId;
+    private String productId;
     @Column(name = "purchase_price")
     private Integer purchasePrice;
     @Column(name = "purchase_date")
-    private LocalDate purchaseDate;
+    private LocalDateTime purchaseDate;
 
 }
