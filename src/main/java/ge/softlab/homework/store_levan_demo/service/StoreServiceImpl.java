@@ -1,8 +1,6 @@
 package ge.softlab.homework.store_levan_demo.service;
 
-import ge.softlab.homework.store_levan_demo.model.Product;
-import ge.softlab.homework.store_levan_demo.model.Purchase;
-import ge.softlab.homework.store_levan_demo.model.Sale;
+import ge.softlab.homework.store_levan_demo.model.*;
 import ge.softlab.homework.store_levan_demo.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -21,6 +19,7 @@ public class StoreServiceImpl implements StoreService {
     private final PurchaseRepository purchasesRepository;
     private final SaleRepository salesRepository;
     private final CategoryRepository categoriesRepository;
+    private final ReceiptRepository receiptsRepository;
 
     public List<Product> getProducts(String Product) {
         return productsRepository.findAll();
@@ -70,7 +69,36 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<Sale> getSales(Integer Sale) {
-        return salesRepository.findAll(Sort.by(Sort.Direction.DESC,"sellDate"));
+        return salesRepository.findAll(Sort.by(Sort.Direction.DESC, "sellDate"));
+    }
+
+    @Override
+    @Transactional
+    public Receipt sellProducts(List<SaleDTO> saleDTOs) {
+
+        Receipt receipt = new Receipt();
+        receipt.setReceiptDate(LocalDateTime.now());
+        Double priceSum = 0.0;
+        for (SaleDTO saleDTO : saleDTOs) {
+            priceSum += saleDTO.getPrice();
+        }
+        receipt.setSumPrice(priceSum);
+        receiptsRepository.save(receipt);
+
+        for (SaleDTO saleDTO : saleDTOs) {
+            Product product = productsRepository.findById(saleDTO.getId()).orElseThrow();
+            product.setRemaining(product.getRemaining() - saleDTO.getQuantity());
+            productsRepository.save(product);
+
+            Sale sale = new Sale();
+            sale.setProductId(product.getEanCode());
+            sale.setSellDate(LocalDateTime.now());
+            sale.setReceiptId(receipt.getId());
+            sale.setQuantity(saleDTO.getQuantity());
+            salesRepository.save(sale);
+        }
+
+        return null;
     }
 
 

@@ -23,6 +23,8 @@ public class Sale {
     private Integer sellPrice;
     @Column(name = "sell_date")
     private LocalDateTime sellDate;
+    @Column(name = "quantity")
+    private Integer quantity;
     @Column(name = "receipt_id")
     private Integer receiptId;
 
