@@ -27,14 +27,14 @@ public class StoreController {
     }
 
     @GetMapping("/products")
-    @Operation(tags = {"Products"}, description = "აბრუნებს პროდუცქტის სიას")
+    @Operation(tags = {"Products"}, summary = "პროდუცქტის სია")
     public List<Product> getProducts(String Product) {
         return storeService.getProducts(Product);
 
     }
 
     @PutMapping("/products")
-    @Operation(tags = {"Products"}, description = "ამატებს ახალ პროდუქტს")
+    @Operation(tags = {"Products"}, summary = "ახალ პროდუქტის დამატება")
     public ResponseEntity<Product> addNewProduct(@RequestBody Product product) {
         Product newProduct = storeService.addProducts(product);
         return ResponseEntity.status(201).body(newProduct);
@@ -42,6 +42,7 @@ public class StoreController {
 
 
     @PostMapping("products/{id}/sales")
+    @Operation(tags = {"Sales"}, summary = "პროდუქტის გაყიდვა ცალობით")
     public Object sellProduct(@PathVariable String id) {
         try {
             Sale newSale = storeService.sellProduct(id);
@@ -55,6 +56,7 @@ public class StoreController {
     }
 
     @PostMapping("products/{id}/purchases")
+    @Operation(tags = {"Purchase"}, summary = "პროდუქტის ყიდვა")
     public Object purchaseProduct(@PathVariable String id) {
         try {
             Purchase newPurchase = storeService.purchaseProduct(id);
@@ -66,12 +68,14 @@ public class StoreController {
     }
 
     @GetMapping("/sales")
+    @Operation(tags = {"Sales Report"}, summary = "გაყიდვები თარიღის მიხედვით")
     public List<Sale> getSales(Integer Sale) {
         return storeService.getSales(Sale);
 
     }
 
     @PostMapping("/sales")
+    @Operation(tags = {"Sales"}, summary = "პროდუქტების ნაკრების გაყიდვა")
     public ResponseEntity<Receipt> sellProducts(@RequestBody List<SaleDTO> saleDTOs) {
         Receipt newReceipt = storeService.sellProducts(saleDTOs);
         return ResponseEntity.status(201).body(newReceipt);
