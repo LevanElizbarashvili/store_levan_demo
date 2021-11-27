@@ -98,7 +98,7 @@ public class StoreServiceImpl implements StoreService {
             salesRepository.save(sale);
         }
 
-        return null;
+        return receipt;
     }
 
 

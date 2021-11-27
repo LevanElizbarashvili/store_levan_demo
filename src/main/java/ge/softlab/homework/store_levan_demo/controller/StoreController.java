@@ -71,7 +71,7 @@ public class StoreController {
 
     }
 
-    @PostMapping("sales")
+    @PostMapping("/sales")
     public ResponseEntity<Receipt> sellProducts(@RequestBody List<SaleDTO> saleDTOs) {
         Receipt newReceipt = storeService.sellProducts(saleDTOs);
         return ResponseEntity.status(201).body(newReceipt);
