@@ -94,6 +94,7 @@ public class StoreServiceImpl implements StoreService {
             sale.setProductId(product.getEanCode());
             sale.setSellDate(LocalDateTime.now());
             sale.setReceiptId(receipt.getId());
+            sale.setSellPrice(saleDTO.getPrice());
             sale.setQuantity(saleDTO.getQuantity());
             salesRepository.save(sale);
         }

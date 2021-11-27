@@ -20,7 +20,7 @@ public class Sale {
     @Column(name = "product_id")
     private String productId;
     @Column(name = "sell_price")
-    private Integer sellPrice;
+    private Double sellPrice;
     @Column(name = "sell_date")
     private LocalDateTime sellDate;
     @Column(name = "quantity")

@@ -26,7 +26,7 @@ public class Product {
     @Column(name = "purchase_price")
     private Integer purchasePrice;
     @Column(name = "sell_price")
-    private Integer sellPrice;
+    private Double sellPrice;
     @Column(name = "remaining")
     private Integer remaining;
 
