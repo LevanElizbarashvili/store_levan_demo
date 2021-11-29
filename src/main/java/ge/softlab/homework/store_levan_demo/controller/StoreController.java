@@ -77,8 +77,11 @@ public class StoreController {
     @PostMapping("/sales")
     @Operation(tags = {"Sales"}, summary = "პროდუქტების ნაკრების გაყიდვა")
     public ResponseEntity<Receipt> sellProducts(@RequestBody List<SaleDTO> saleDTOs) {
-        Receipt newReceipt = storeService.sellProducts(saleDTOs);
-        return ResponseEntity.status(201).body(newReceipt);
-
+        try {
+            Receipt newReceipt = storeService.sellProducts(saleDTOs);
+            return ResponseEntity.status(201).body(newReceipt);
+        } catch (NoSuchElementException ignore) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

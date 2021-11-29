@@ -85,10 +85,11 @@ public class StoreServiceImpl implements StoreService {
         receipt.setSumPrice(priceSum);
         receiptsRepository.save(receipt);
 
+        Product product = null;
         for (SaleDTO saleDTO : saleDTOs) {
-            Product product = productsRepository.findById(saleDTO.getId()).orElseThrow();
+            product = productsRepository.findById(saleDTO.getId()).orElseThrow();
             product.setRemaining(product.getRemaining() - saleDTO.getQuantity());
-            productsRepository.save(product);
+
 
             Sale sale = new Sale();
             sale.setProductId(product.getEanCode());
@@ -98,6 +99,7 @@ public class StoreServiceImpl implements StoreService {
             sale.setQuantity(saleDTO.getQuantity());
             salesRepository.save(sale);
         }
+        productsRepository.save(product);
 
         return receipt;
     }
